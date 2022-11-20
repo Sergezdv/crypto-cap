@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+
+  <div class="form-group mb-3">
+    <p><strong>Coin cap currency:</strong></p>
+    <div>
+      <%= @currency.coin_cap_currency_id %>
+    </div>
+  </div>
+  
+  <div class="form-group mb-3">
+    <p><strong>Name:</strong></p>
+    <div>
+      <%= @currency.name %>
+    </div>
+  </div>
+  
+  <div class="form-group mb-3">
+    <p><strong>Market cap usd:</strong></p>
+    <div>
+      <%= @currency.market_cap_usd %>
+    </div>
+  </div>
+  
+  <div class="form-group mb-3">
+    <p><strong>Change percent 1hr:</strong></p>
+    <div>
+      <%= @currency.change_percent_1hr %>
+    </div>
+  </div>
+  
+  <div class="form-group mb-3">
+    <p><strong>Change percent 24hr:</strong></p>
+    <div>
+      <%= @currency.change_percent_24hr %>
+    </div>
+  </div>
+  
+  <div class="form-group mb-3">
+    <p><strong>Change percent 7d:</strong></p>
+    <div>
+      <%= @currency.change_percent_7d %>
+    </div>
+  </div>
+  
+  
+  <%= link_to 'Edit', edit_currency_path(@currency), class: "btn btn-primary min-width-btn" %>
+  <%= link_to 'Back', currencies_path, class: "btn btn-light min-width-btn" %>
+</div>

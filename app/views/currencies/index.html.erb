@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Currencies</h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+            <th>Coin cap currency</th>
+            <th>Name</th>
+            <th>Market cap usd</th>
+            <th>Change percent 1hr</th>
+            <th>Change percent 24hr</th>
+            <th>Change percent 7d</th>
+            <th colspan="1"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @currencies.each do |currency| %>
+    <tr>
+            <td><%= currency.coin_cap_currency_id %></td>
+            <td><%= currency.name %></td>
+            <td><%= currency.market_cap_usd %></td>
+            <td><%= currency.change_percent_1hr %></td>
+            <td><%= currency.change_percent_24hr %></td>
+            <td><%= currency.change_percent_7d %></td>
+            <td><%= link_to 'Show', currency %></td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>
