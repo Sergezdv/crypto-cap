@@ -1,4 +1,9 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
+  authenticate :user, lambda { |u| u.id } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   resources :currencies
   devise_for :users
   get 'home/index'

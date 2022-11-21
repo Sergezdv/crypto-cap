@@ -18,7 +18,6 @@ class Integrations::CoinCap
   def request(path, params)
     uri = URI("https://api.coincap.io/v2/#{path}")
     uri.query = URI.encode_www_form(params)
-    puts uri
     response = JSON.parse(Net::HTTP.get_response(uri).body)
   rescue JSON::JSONError => e
     Rails.logger.info "Exception: CoinCap request url #{url} raise: #{e.message}"

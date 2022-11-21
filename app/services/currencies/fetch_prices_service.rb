@@ -1,5 +1,5 @@
 class Currencies::FetchPricesService
-  def initialize(payload)
+  def initialize(payload={})
     @assets = payload[:assets]
     @skip_prices = payload[:skip_prices]
     @currencies = Currency.all
