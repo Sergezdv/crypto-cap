@@ -1,49 +1,105 @@
-<div class="container-fluid">
+<%# content_for :head do %>
+  <%#= javascript_import_module_tag "script" %>
+<%# end %>
+
+<div class="container-lg">
   <p id="notice"><%= notice %></p>
 
-  <div class="form-group mb-3">
-    <p><strong>Coin cap currency:</strong></p>
-    <div>
-      <%= @currency.coin_cap_currency_id %>
-    </div>
-  </div>
-  
-  <div class="form-group mb-3">
-    <p><strong>Name:</strong></p>
-    <div>
-      <%= @currency.name %>
-    </div>
-  </div>
-  
-  <div class="form-group mb-3">
-    <p><strong>Market cap usd:</strong></p>
-    <div>
-      <%= @currency.market_cap_usd %>
-    </div>
-  </div>
-  
-  <div class="form-group mb-3">
-    <p><strong>Change percent 1hr:</strong></p>
-    <div>
-      <%= @currency.change_percent_1hr %>
-    </div>
-  </div>
-  
-  <div class="form-group mb-3">
-    <p><strong>Change percent 24hr:</strong></p>
-    <div>
-      <%= @currency.change_percent_24hr %>
-    </div>
-  </div>
-  
-  <div class="form-group mb-3">
-    <p><strong>Change percent 7d:</strong></p>
-    <div>
-      <%= @currency.change_percent_7d %>
-    </div>
-  </div>
-  
-  
-  <%= link_to 'Edit', edit_currency_path(@currency), class: "btn btn-primary min-width-btn" %>
-  <%= link_to 'Back', currencies_path, class: "btn btn-light min-width-btn" %>
+
+  <h2><%= @currency.name %></h2>
+  <br/>
+  <div id="container" style="width:100%; height:400px;"></div>
+
+  <h2>Daily Coin Info</h2>
+  <br>
+
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+      <th>Currency</th>
+      <th>Timestamp</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @price_movements.each do |price_movement| %>
+      <tr>
+        <td><%= @currency.name %></td>
+        <td class="text-end"><%= price_movement.timestamp.strftime("%m/%d/%Y %l:%M %p") %></td>
+        <td class="text-end"><%= number_to_currency price_movement.price_usd %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
 </div>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+    const prices = <%= @price_movements.to_json.html_safe %>;
+    const pricesData = prices.map((price) => [
+        new Date(price.timestamp).getTime(),
+        parseFloat(price.price_usd)
+    ])
+
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const chart = Highcharts.chart('container', {
+            chart: {
+                type: 'spline',
+                scrollablePlotArea: {
+                    minWidth: 600,
+                    scrollPositionX: 1
+                }
+            },
+            title: {
+                text: '',
+                // align: 'left'
+            },
+            xAxis: {
+                type: 'datetime',
+                reversed: true,
+                title: {
+                    text: 'Timestamp'
+                },
+                labels: {
+                    format: '{value:%m/%e/%Y %l:%M %p}',
+                },
+                gridLineWidth: 1,
+            },
+            yAxis: {
+                title: {
+                    text: 'Price'
+                },
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                headerFormat: '{point.key:%a, %b %e, %Y %l:%M %p}<br/>',
+                pointFormat: '{series.name}: <b>{point.y:.2f}$</b><br/>',
+            },
+            plotOptions: {
+                spline: {
+                    lineWidth: 2,
+                    marker: {
+                        enabled: false
+                    },
+                    pointInterval: 3600000, // one hour
+                    pointStart: Date.UTC(2022, 5, 13, 0, 0, 0)
+                }
+            },
+            series: [{
+                name: 'Price',
+                data: pricesData
+            }],
+        });
+
+    });
+</script>

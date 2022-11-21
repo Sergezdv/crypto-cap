@@ -8,6 +8,7 @@ class CurrenciesController < ApplicationController
 
   # GET /currencies/1 or /currencies/1.json
   def show
+    @price_movements = @currency.price_movements.order(timestamp: :desc).limit(24)
   end
 
 

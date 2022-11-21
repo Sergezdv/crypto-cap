@@ -1,34 +1,44 @@
-<div class="container-fluid">
+<div class="container-lg">
   <p id="notice"><%= notice %></p>
 
-  <h1>Currencies</h1>
+  <h2>Daily Coin Info</h2>
+  <br>
 
-  <table class="table">
+  <table class="table table-hover table-bordered">
     <thead>
     <tr>
-            <th>Coin cap currency</th>
-            <th>Name</th>
-            <th>Market cap usd</th>
-            <th>Change percent 1hr</th>
-            <th>Change percent 24hr</th>
-            <th>Change percent 7d</th>
-            <th colspan="1"></th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Market Cap</th>
+        <th>1hr</th>
+        <th>24hr</th>
+        <th>7day</th>
     </tr>
     </thead>
 
     <tbody>
     <% @currencies.each do |currency| %>
-    <tr>
-            <td><%= currency.coin_cap_currency_id %></td>
-            <td><%= currency.name %></td>
-            <td><%= currency.market_cap_usd %></td>
-            <td><%= currency.change_percent_1hr %></td>
-            <td><%= currency.change_percent_24hr %></td>
-            <td><%= currency.change_percent_7d %></td>
-            <td><%= link_to 'Show', currency %></td>
+    <tr class="pe-pointer" onclick="goTo('<%= currency_path(currency) %>')">
+        <td><%= currency.name %></td>
+        <td class="text-end"><%= number_to_currency currency.price_usd %></td>
+        <td class="text-end"><%= number_to_currency currency.market_cap_usd %></td>
+        <td class="text-end <%= diff_class(currency.change_percent_1hr) %>">
+          <%= number_to_percentage currency.change_percent_1hr, precision: 2 %>
+        </td>
+        <td class="text-end <%= diff_class(currency.change_percent_24hr) %>">
+          <%= number_to_percentage currency.change_percent_24hr, precision: 2 %>
+        </td>
+        <td class="text-end <%= diff_class(currency.change_percent_7d) %>">
+          <%= number_to_percentage currency.change_percent_7d, precision: 2 %>
+        </td>
     </tr>
     <% end %>
     </tbody>
   </table>
 
 </div>
+<script>
+    function goTo(path) {
+        window.location = path
+    }
+</script>
