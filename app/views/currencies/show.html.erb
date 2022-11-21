@@ -1,7 +1,4 @@
-<%# content_for :head do %>
-  <%#= javascript_import_module_tag "script" %>
-<%# end %>
-
+<%= javascript_include_tag "currencies/currency_show", "data-turbo-track": "reload", defer: true %>
 <div class="container-lg">
   <p id="notice"><%= notice %></p>
 
@@ -13,7 +10,7 @@
   <h2>Daily Coin Info</h2>
   <br>
 
-  <table class="table table-hover table-bordered">
+  <table id="currency_price_list" class="table table-hover table-bordered">
     <thead>
     <tr>
       <th>Currency</th>
@@ -35,71 +32,6 @@
 
 </div>
 
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
-    const prices = <%= @price_movements.to_json.html_safe %>;
-    const pricesData = prices.map((price) => [
-        new Date(price.timestamp).getTime(),
-        parseFloat(price.price_usd)
-    ])
-
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const chart = Highcharts.chart('container', {
-            chart: {
-                type: 'spline',
-                scrollablePlotArea: {
-                    minWidth: 600,
-                    scrollPositionX: 1
-                }
-            },
-            title: {
-                text: '',
-                // align: 'left'
-            },
-            xAxis: {
-                type: 'datetime',
-                reversed: true,
-                title: {
-                    text: 'Timestamp'
-                },
-                labels: {
-                    format: '{value:%m/%e/%Y %l:%M %p}',
-                },
-                gridLineWidth: 1,
-            },
-            yAxis: {
-                title: {
-                    text: 'Price'
-                },
-            },
-            legend: {
-                enabled: false
-            },
-            tooltip: {
-                headerFormat: '{point.key:%a, %b %e, %Y %l:%M %p}<br/>',
-                pointFormat: '{series.name}: <b>{point.y:.2f}$</b><br/>',
-            },
-            plotOptions: {
-                spline: {
-                    lineWidth: 2,
-                    marker: {
-                        enabled: false
-                    },
-                    pointInterval: 3600000, // one hour
-                    pointStart: Date.UTC(2022, 5, 13, 0, 0, 0)
-                }
-            },
-            series: [{
-                name: 'Price',
-                data: pricesData
-            }],
-        });
-
-    });
+    window.prices = <%= @price_movements.to_json.html_safe %>;
 </script>

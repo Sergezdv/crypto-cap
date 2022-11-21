@@ -1,44 +1,39 @@
+<%= javascript_include_tag "currencies/currency_index", "data-turbo-track": "reload", defer: true %>
 <div class="container-lg">
   <p id="notice"><%= notice %></p>
 
   <h2>Daily Coin Info</h2>
   <br>
 
-  <table class="table table-hover table-bordered">
+  <table id="currency_list" class="table table-hover table-bordered">
     <thead>
-    <tr>
+      <tr>
         <th>Name</th>
         <th>Price</th>
         <th>Market Cap</th>
         <th>1hr</th>
         <th>24hr</th>
         <th>7day</th>
-    </tr>
+      </tr>
     </thead>
-
     <tbody>
-    <% @currencies.each do |currency| %>
-    <tr class="pe-pointer" onclick="goTo('<%= currency_path(currency) %>')">
-        <td><%= currency.name %></td>
-        <td class="text-end"><%= number_to_currency currency.price_usd %></td>
-        <td class="text-end"><%= number_to_currency currency.market_cap_usd %></td>
-        <td class="text-end <%= diff_class(currency.change_percent_1hr) %>">
-          <%= number_to_percentage currency.change_percent_1hr, precision: 2 %>
-        </td>
-        <td class="text-end <%= diff_class(currency.change_percent_24hr) %>">
-          <%= number_to_percentage currency.change_percent_24hr, precision: 2 %>
-        </td>
-        <td class="text-end <%= diff_class(currency.change_percent_7d) %>">
-          <%= number_to_percentage currency.change_percent_7d, precision: 2 %>
-        </td>
-    </tr>
-    <% end %>
+      <% @currencies.each do |currency| %>
+        <tr class="pe-pointer" data-link="<%= currency_path(currency) %>">
+          <td><%= currency.name %></td>
+          <td class="text-end"><%= number_to_currency currency.price_usd %></td>
+          <td class="text-end"><%= number_to_currency currency.market_cap_usd %></td>
+          <td class="text-end <%= diff_class(currency.change_percent_1hr) %>">
+            <%= number_to_percentage currency.change_percent_1hr, precision: 2 %>
+          </td>
+          <td class="text-end <%= diff_class(currency.change_percent_24hr) %>">
+            <%= number_to_percentage currency.change_percent_24hr, precision: 2 %>
+          </td>
+          <td class="text-end <%= diff_class(currency.change_percent_7d) %>">
+            <%= number_to_percentage currency.change_percent_7d, precision: 2 %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 
 </div>
-<script>
-    function goTo(path) {
-        window.location = path
-    }
-</script>
