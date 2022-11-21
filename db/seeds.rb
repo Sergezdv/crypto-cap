@@ -7,5 +7,6 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-currencies = %w(bitcoin ethereum tether usd-coin binance-coin)
-currencies.each { |coin_cap_currency_id| Currency.find_or_create_by(coin_cap_currency_id: coin_cap_currency_id) }
+coin_cap_currency_ids = %w(bitcoin ethereum tether usd-coin binance-coin)
+currency_data =
+Currencies::FetchHistoryPricesService.new(coin_cap_currency_ids).fetch_history_and_create
