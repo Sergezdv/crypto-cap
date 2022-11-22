@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :currencies, only: %i[index show]
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

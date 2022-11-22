@@ -56,6 +56,7 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'devise-bootstrap5'
 gem 'devise-i18n'
+gem 'bootstrap-email'
 
 gem 'sidekiq', '~> 6'
 gem 'sidekiq-scheduler'
@@ -82,4 +83,5 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'letter_opener'
 end

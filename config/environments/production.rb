@@ -72,6 +72,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
   # config.action_mailer.default_url_options = { host: 'actual_app_host' }
+  config.action_mailer.default_url_options = {host: ENV['APP_URL']}
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -99,4 +100,15 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  #config/environments/production.rb
+  ActionMailer::Base.smtp_settings = {
+    :user_name => 'apikey', # This is the string literal 'apikey', NOT the ID of your API key
+    :password => ENV['SEND_GRID_KEY'], # This is the secret sendgrid API key which was issued during API key creation
+    :domain => ENV['APP_DOMAIN'],
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 end
