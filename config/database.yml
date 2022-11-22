@@ -21,10 +21,6 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-  url: postgresql://localhost:5433
-  username: pguser
-  password: pgpwd
-
 development:
   <<: *default
   database: crypto_cap_development
