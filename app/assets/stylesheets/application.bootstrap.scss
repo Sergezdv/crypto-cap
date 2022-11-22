@@ -5,3 +5,9 @@
   min-width:100px;
   margin:1px;
 }
+
+
+.dataTables_filter {
+  display: flex;
+  flex-direction: row-reverse;
+}

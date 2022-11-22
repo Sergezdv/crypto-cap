@@ -11,9 +11,23 @@
   </head>
 
   <body>
-    <div class="container-lg">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          Crypto Cap
+        </a>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+        <% if user_signed_in? %>
+          <div class="d-flex">
+            <div class="me-2"> <%= current_user.email %> </div>
+            <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+          </div>
+        <% end %>
+      </div>
+    </nav>
+    <div class="container-lg pt-4">
+
       <%= yield %>
     </div>
   </body>
