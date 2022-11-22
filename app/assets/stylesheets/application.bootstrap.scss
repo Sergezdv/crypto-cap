@@ -1,13 +1,4 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
-
-.min-width-btn {
-  min-width:100px;
-  margin:1px;
-}
-
-
-.dataTables_filter {
-  display: flex;
-  flex-direction: row-reverse;
-}
+@import './datatables_customizes';
+@import './custom';
