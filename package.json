@@ -1,5 +1,6 @@
 {
   "name": "app",
+  "license": "UNLICENSED",
   "dependencies": {
     "@hotwired/stimulus": "^3.1.1",
     "@hotwired/turbo-rails": "^7.2.4",
