@@ -8,7 +8,7 @@ class CurrencyBuilder
 
   def get_data
     {
-      # id: currency.id,
+      # id: currencies.id,
       coin_cap_currency_id: currency&.coin_cap_currency_id || asset['id'],
       name: currency&.name || asset['name'],
       market_cap_usd: asset['marketCapUsd'],
@@ -23,7 +23,7 @@ class CurrencyBuilder
   attr_reader :asset, :currency
 
   def new_price
-    # currency.price_movements.last.price_usd
+    # currencies.price_movements.last.price_usd
     asset['priceUsd'].to_f
   end
 
