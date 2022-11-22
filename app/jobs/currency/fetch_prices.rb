@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 require 'sidekiq-scheduler'
 
-class Currency::FetchPrices < ApplicationJob
-  def perform
-    Currencies::FetchPricesService.new.fetch_and_create
+module Currency
+  class FetchPrices < ApplicationJob
+    def perform
+      Currencies::FetchPricesService.new.fetch_and_create
+    end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CurrencyBuilder
   def initialize(asset, currency = nil)
     @asset = asset
