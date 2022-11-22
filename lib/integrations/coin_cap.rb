@@ -1,15 +1,14 @@
 require 'net/http'
 
 class Integrations::CoinCap
-
   class ApiError < StandardError; end
 
-  def assets(asset_ids) #bitcoin,ethereum
+  def assets(asset_ids) # bitcoin,ethereum
     asset_ids = asset_ids.join(',') if asset_ids.is_a?(Array)
     request('assets', ids: asset_ids.to_s) # => { data: [], timestamp: 123 }
   end
 
-  def assets_history(asset_id) #bitcoin
+  def assets_history(asset_id) # bitcoin
     request("assets/#{asset_id}/history", interval: 'h1') # => { data: [], timestamp: 123 }
   end
 

@@ -1,5 +1,5 @@
 class CurrencyBuilder
-  def initialize(asset, currency=nil)
+  def initialize(asset, currency = nil)
     @asset = asset
     @currency = currency
   end
@@ -12,10 +12,9 @@ class CurrencyBuilder
       market_cap_usd: asset['marketCapUsd'],
       change_percent_1hr: change_percent(1.hour),
       change_percent_24hr: asset['changePercent24Hr'],
-      change_percent_7d: change_percent(7.days),
+      change_percent_7d: change_percent(7.days)
     }
   end
-
 
   private
 
@@ -28,12 +27,13 @@ class CurrencyBuilder
 
   def change_percent(duration)
     return unless currency
+
     old_price = price_movement_by(duration)&.price_usd
     (new_price - old_price) / old_price * 100 if old_price
   end
 
   def price_movement_by(duration)
     duration = (duration - 5.minutes) # infelicity
-    currency.price_movements.where(timestamp: ..duration.ago ).order(timestamp: :desc).first
+    currency.price_movements.where(timestamp: ..duration.ago).order(timestamp: :desc).first
   end
 end

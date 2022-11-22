@@ -1,5 +1,5 @@
 class Currencies::FetchPricesService
-  def initialize(payload={})
+  def initialize(payload = {})
     @assets = payload[:assets]
     @skip_prices = payload[:skip_prices]
     @currencies = Currency.all
@@ -17,7 +17,7 @@ class Currencies::FetchPricesService
 
   def fetch_assets
     coin_cap_currency_ids = @currencies.map { |currency| currency.coin_cap_currency_id }
-    @assets = Integrations::CoinCap.new.assets( coin_cap_currency_ids )
+    @assets = Integrations::CoinCap.new.assets(coin_cap_currency_ids)
   end
 
   def create_prices
@@ -27,7 +27,7 @@ class Currencies::FetchPricesService
       prices_data.push({
                          price_usd: asset['priceUsd'],
                          currency_id: currency.id,
-                         timestamp: Time.at(assets['timestamp']/1000)
+                         timestamp: Time.at(assets['timestamp'] / 1000)
                        })
     end
     PriceMovement.create(prices_data)
@@ -41,8 +41,7 @@ class Currencies::FetchPricesService
     end
   end
 
-  def get_asset(coin_id)
+  def get_asset(_coin_id)
     assets['data'].find { |asset| asset['id'] == currency.coin_cap_currency_id }
   end
-
 end

@@ -1,6 +1,6 @@
 class CurrenciesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_currency, only: %i[ show ]
+  before_action :set_currency, only: %i[show]
 
   # GET /currencies or /currencies.json
   def index
@@ -12,10 +12,10 @@ class CurrenciesController < ApplicationController
     @price_movements = @currency.price_movements.order(timestamp: :desc).limit(24)
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_currency
-      @currency = Currency.find(params[:id])
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_currency
+    @currency = Currency.find(params[:id])
+  end
 end
