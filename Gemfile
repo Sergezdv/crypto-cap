@@ -52,6 +52,9 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "devise"
+gem "devise-i18n"
+gem "devise-bootstrap5"
+
 gem "sidekiq", "~> 6"
 gem "sidekiq-scheduler"
 

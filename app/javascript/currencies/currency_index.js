@@ -1,6 +1,10 @@
 
 $(document).ready(function() {
-    $('#currency_list').DataTable();
+    $('#currency_list').DataTable({
+        "bLengthChange" : false,
+        "bInfo":false,
+        "paging": false
+    });
 });
 
 
